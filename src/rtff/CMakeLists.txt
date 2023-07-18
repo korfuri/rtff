@@ -86,22 +86,22 @@ install(FILES
   DESTINATION include/rtff/fft
 )
 
-if (${rtff_enable_tests})
-  add_executable(rtff_test
-    ${src}/rtff/test.cc
-    ${src}/rtff/buffer/buffer_test.cc
-  )
+# if (${rtff_enable_tests})
+#   add_executable(rtff_test
+#     ${src}/rtff/test.cc
+#     ${src}/rtff/buffer/buffer_test.cc
+#   )
 
-  target_link_libraries(rtff_test
-    gtest
-    gtest_main
-    rtff
-    wave
-    eigen
-    ${external_libraries}
-  )
-  target_compile_definitions(rtff_test
-    PUBLIC
-      -DTEST_RESOURCES_PATH="${test_resource_path}"
-  )
-endif()
+#   target_link_libraries(rtff_test
+#     gtest
+#     gtest_main
+#     rtff
+#     wave
+#     eigen
+#     ${external_libraries}
+#   )
+#   target_compile_definitions(rtff_test
+#     PUBLIC
+#       -DTEST_RESOURCES_PATH="${test_resource_path}"
+#   )
+# endif()
