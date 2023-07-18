@@ -52,10 +52,23 @@ target_include_directories(rtff PUBLIC
 
 OrganizeSources(SOURCES ${rtff_sources})
 
-target_link_libraries(rtff
-  eigen
-  ${external_libraries}
-)
+find_package(eigen)
+target_link_libraries(rtff eigen)
+
+if (${rtff_use_mkl})
+  find_package(mkl)
+  target_link_libraries(rtff mkl)
+elseif (${rtff_use_fftw})
+  find_package(fftw)
+  target_link_libraries(rtff fftw)
+endif()
+
+# Intel TBB
+if (${rtff_enable_multithread})
+  find_package(tbb)
+  target_link_libraries(rtff tbb)
+endif()
+
 # deal with fftw wisdom
 set(compile_definitions -D${fft_backend})
 if (${rtff_fftw_use_wisdom})
@@ -98,7 +111,6 @@ install(FILES
 #     rtff
 #     wave
 #     eigen
-#     ${external_libraries}
 #   )
 #   target_compile_definitions(rtff_test
 #     PUBLIC

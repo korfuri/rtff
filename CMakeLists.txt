@@ -16,23 +16,6 @@ option(rtff_use_fftw "Use the fftw backend to compute faster ffts" OFF)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_DEBUG_POSTFIX d)  # add the d postfix to generated libraries
 
-find_package(eigen)
-target_link_libraries(rtff eigen)
-
-if (${rtff_use_mkl})
-  find_package(mkl)
-  target_link_libraries(rtff mkl)
-elseif (${rtff_use_fftw})
-  find_package(fftw)
-  target_link_libraries(rtff fftw)
-endif()
-
-# Intel TBB
-if (${rtff_enable_multithread})
-  find_package(tbb)
-  target_link_libraries(rtff tbb)
-endif()
-
 # if (${rtff_enable_tests})
 #   enable_testing()
 #   include(add_wave)
