@@ -52,8 +52,11 @@ target_include_directories(rtff PUBLIC
 
 OrganizeSources(SOURCES ${rtff_sources})
 
-find_package(eigen)
-target_link_libraries(rtff eigen)
+find_package(PkgConfig REQUIRED)
+pkg_search_module(EIGEN REQUIRED eigen3 IMPORTED_TARGET)
+target_link_libraries(rtff ${EIGEN_LIBRARIES})
+target_include_directories(rtff PUBLIC ${EIGEN_INCLUDE_DIRS})
+target_compile_options(rtff PUBLIC ${EIGEN_CFLAGS_OTHER})
 
 if (${rtff_use_mkl})
   find_package(mkl)
